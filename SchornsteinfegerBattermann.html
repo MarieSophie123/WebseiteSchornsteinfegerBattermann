@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marc Battermann – Schornsteinfeger & Brandschutz</title>
+<style>
+  :root {
+    --navy: #0d2340;
+    --blue: #1a3a6b;
+    --gold: #c8a84b;
+    --light: #f4f7fc;
+    --white: #fff;
+    --gray: #6b7280;
+    --text: #1a1a2e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Segoe UI',Arial,sans-serif; color:var(--text); background:var(--white); }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; width:100%; z-index:100;
+    background:rgba(13,35,64,0.97); backdrop-filter:blur(8px);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 5%; height:72px; box-shadow:0 2px 20px rgba(0,0,0,.3);
+  }
+  .logo { display:flex; align-items:center; gap:12px; }
+  .logo-emblem {
+    width:42px; height:42px; background:var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .logo-emblem svg { width:22px; height:22px; fill:var(--navy); }
+  .logo-text { color:var(--white); }
+  .logo-text strong { display:block; font-size:1.05rem; letter-spacing:.5px; }
+  .logo-text span { font-size:.72rem; color:var(--gold); letter-spacing:1px; text-transform:uppercase; }
+  .nav-links { display:flex; gap:30px; list-style:none; }
+  .nav-links a { color:#cbd5e1; text-decoration:none; font-size:.9rem; transition:color .2s; }
+  .nav-links a:hover { color:var(--gold); }
+  .nav-cta {
+    background:var(--gold); color:var(--navy); padding:9px 22px;
+    border-radius:6px; font-weight:700; font-size:.88rem; text-decoration:none;
+    transition:opacity .2s;
+  }
+  .nav-cta:hover { opacity:.85; }
+
+  /* HERO */
+  .hero {
+    position:relative; height:100vh; min-height:600px;
+    display:flex; align-items:center; overflow:hidden;
+  }
+  .hero img {
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .hero-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(100deg, rgba(13,35,64,.88) 45%, rgba(13,35,64,.3));
+  }
+  .hero-content {
+    position:relative; z-index:2; padding:0 8%; max-width:680px;
+  }
+  .badge {
+    display:inline-block; background:var(--gold); color:var(--navy);
+    font-size:.75rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+    padding:5px 14px; border-radius:4px; margin-bottom:20px;
+  }
+  .hero h1 {
+    font-size:clamp(2rem,4.5vw,3.2rem); color:var(--white); line-height:1.15;
+    font-weight:800; margin-bottom:20px;
+  }
+  .hero h1 span { color:var(--gold); }
+  .hero p { color:#cbd5e1; font-size:1.1rem; line-height:1.7; margin-bottom:35px; }
+  .hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary {
+    background:var(--gold); color:var(--navy); padding:14px 30px;
+    border-radius:8px; font-weight:700; text-decoration:none; font-size:1rem;
+    transition:transform .2s, opacity .2s;
+  }
+  .btn-primary:hover { transform:translateY(-2px); opacity:.9; }
+  .btn-outline {
+    border:2px solid rgba(255,255,255,.5); color:var(--white); padding:14px 30px;
+    border-radius:8px; font-weight:600; text-decoration:none; font-size:1rem;
+    transition:border-color .2s;
+  }
+  .btn-outline:hover { border-color:var(--gold); color:var(--gold); }
+
+  /* STATS BAR */
+  .stats {
+    background:var(--navy); display:flex; justify-content:center;
+    gap:0; flex-wrap:wrap;
+  }
+  .stat {
+    padding:28px 50px; text-align:center; border-right:1px solid rgba(255,255,255,.1);
+    flex:1; min-width:160px;
+  }
+  .stat:last-child { border-right:none; }
+  .stat strong { display:block; font-size:2rem; color:var(--gold); font-weight:800; }
+  .stat span { color:#94a3b8; font-size:.85rem; }
+
+  /* SECTIONS */
+  section { padding:90px 8%; }
+  .section-label {
+    font-size:.78rem; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px;
+  }
+  h2 { font-size:clamp(1.6rem,3vw,2.4rem); font-weight:800; color:var(--navy); margin-bottom:18px; }
+  .subtitle { color:var(--gray); font-size:1.05rem; line-height:1.7; max-width:600px; }
+
+  /* LEISTUNGEN */
+  .leistungen { background:var(--light); }
+  .leistungen-header { text-align:center; margin-bottom:55px; }
+  .leistungen-header .subtitle { margin:0 auto; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:28px; }
+  .card {
+    background:var(--white); border-radius:14px; overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,.08); transition:transform .25s, box-shadow .25s;
+  }
+  .card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,0,0,.14); }
+  .card-img { height:210px; overflow:hidden; }
+  .card-img img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+  .card:hover .card-img img { transform:scale(1.05); }
+  .card-body { padding:26px; }
+  .card-icon {
+    width:44px; height:44px; background:var(--light); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+  }
+  .card-icon svg { width:22px; height:22px; fill:var(--navy); }
+  .card h3 { font-size:1.2rem; color:var(--navy); margin-bottom:10px; font-weight:700; }
+  .card p { color:var(--gray); font-size:.92rem; line-height:1.65; margin-bottom:18px; }
+  .card-link {
+    color:var(--gold); font-weight:700; font-size:.9rem; text-decoration:none;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .card-link::after { content:'→'; }
+
+  /* ÜBER MICH */
+  .ueber { display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .ueber-img { border-radius:16px; overflow:hidden; height:500px; position:relative; }
+  .ueber-img img { width:100%; height:100%; object-fit:cover; }
+  .ueber-img-badge {
+    position:absolute; bottom:24px; left:24px;
+    background:var(--gold); color:var(--navy); padding:12px 20px;
+    border-radius:10px; font-weight:800; font-size:1.1rem; line-height:1.4;
+  }
+  .ueber-img-badge span { display:block; font-size:.75rem; font-weight:500; }
+  .ueber-content ul { list-style:none; margin-top:20px; }
+  .ueber-content ul li {
+    display:flex; align-items:flex-start; gap:12px;
+    padding:10px 0; border-bottom:1px solid #e5e7eb; color:var(--gray); font-size:.95rem;
+  }
+  .ueber-content ul li::before {
+    content:''; display:block; width:18px; height:18px; flex-shrink:0; margin-top:1px;
+    background:var(--gold); border-radius:50%;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230d2340'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-size:12px; background-repeat:no-repeat; background-position:center;
+  }
+
+  /* VIDEO */
+  .video-section { background:var(--navy); text-align:center; }
+  .video-section h2 { color:var(--white); }
+  .video-section .subtitle { color:#94a3b8; margin:0 auto 40px; }
+  .video-wrap {
+    max-width:800px; margin:0 auto; border-radius:16px; overflow:hidden;
+    position:relative; aspect-ratio:16/9; background:#0a1928;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  .video-wrap img { width:100%; height:100%; object-fit:cover; opacity:.5; }
+  .play-btn {
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .play-circle {
+    width:80px; height:80px; border-radius:50%;
+    background:var(--gold); display:flex; align-items:center; justify-content:center;
+    transition:transform .2s;
+  }
+  .play-circle svg { width:28px; height:28px; fill:var(--navy); margin-left:4px; }
+  .play-btn:hover .play-circle { transform:scale(1.1); }
+  .video-note { margin-top:18px; color:#64748b; font-size:.85rem; }
+
+  /* KONTAKT */
+  .kontakt { background:var(--light); }
+  .kontakt-inner { display:grid; grid-template-columns:1fr 1.2fr; gap:60px; align-items:start; }
+  .kontakt-info h2 { margin-bottom:16px; }
+  .info-item { display:flex; gap:14px; margin-top:22px; align-items:flex-start; }
+  .info-icon {
+    width:42px; height:42px; background:var(--navy); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .info-icon svg { width:18px; height:18px; fill:var(--gold); }
+  .info-item strong { display:block; color:var(--navy); font-size:.9rem; margin-bottom:2px; }
+  .info-item span { color:var(--gray); font-size:.88rem; }
+  form { background:var(--white); border-radius:16px; padding:36px; box-shadow:0 4px 24px rgba(0,0,0,.07); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .form-group { margin-bottom:18px; }
+  label { display:block; font-size:.85rem; font-weight:600; color:var(--navy); margin-bottom:7px; }
+  input, textarea, select {
+    width:100%; padding:11px 14px; border:1.5px solid #d1d5db;
+    border-radius:8px; font-size:.92rem; transition:border-color .2s; font-family:inherit;
+  }
+  input:focus, textarea:focus, select:focus { outline:none; border-color:var(--gold); }
+  textarea { height:120px; resize:vertical; }
+  .checkbox-row { display:flex; gap:10px; align-items:flex-start; font-size:.82rem; color:var(--gray); }
+  .checkbox-row input { width:auto; margin-top:3px; }
+  .form-submit {
+    background:var(--navy); color:var(--white); border:none; padding:14px 32px;
+    border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; width:100%;
+    margin-top:8px; transition:background .2s; letter-spacing:.3px;
+  }
+  .form-submit:hover { background:var(--blue); }
+
+  /* FOOTER */
+  footer { background:var(--navy); color:#94a3b8; padding:50px 8% 28px; }
+  .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr; gap:50px; margin-bottom:40px; }
+  .footer-brand p { font-size:.88rem; line-height:1.7; margin-top:16px; }
+  footer h4 { color:var(--white); font-size:.95rem; margin-bottom:16px; }
+  footer ul { list-style:none; }
+  footer ul li { margin-bottom:10px; }
+  footer ul li a { color:#94a3b8; text-decoration:none; font-size:.88rem; transition:color .2s; }
+  footer ul li a:hover { color:var(--gold); }
+  .footer-bottom {
+    border-top:1px solid rgba(255,255,255,.1); padding-top:22px;
+    display:flex; justify-content:space-between; font-size:.82rem; flex-wrap:wrap; gap:10px;
+  }
+  .footer-bottom a { color:#94a3b8; text-decoration:none; }
+  .footer-bottom a:hover { color:var(--gold); }
+
+  @media(max-width:768px) {
+    .nav-links { display:none; }
+    .ueber { grid-template-columns:1fr; }
+    .kontakt-inner { grid-template-columns:1fr; }
+    .footer-top { grid-template-columns:1fr; }
+    .form-row { grid-template-columns:1fr; }
+    .stat { padding:20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-emblem">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <strong>Marc Battermann</strong>
+      <span>Schornsteinfeger &amp; Brandschutz</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#ueber">Über mich</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <a href="#kontakt" class="nav-cta">Jetzt anfragen</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="https://images.unsplash.com/photo-1513585688143-2c6fc3f2b4c3?w=1600&q=80" alt="Schornsteinfeger auf dem Dach">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="badge">Ihr Fachbetrieb vor Ort</span>
+    <h1>Ihr Experte für <span>Schornstein&shy;feger&shy;arbeiten</span> &amp; Brandschutz</h1>
+    <p>Marc Battermann steht für zuverlässige Schornsteinfegerarbeiten, professionelle Brandschutzschulungen und kompetente Beratung rund um Rauchwarnmelder – für Privat und Gewerbe.</p>
+    <div class="hero-btns">
+      <a href="#leistungen" class="btn-primary">Unsere Leistungen</a>
+      <a href="#kontakt" class="btn-outline">Kontakt aufnehmen</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><strong>15+</strong><span>Jahre Erfahrung</span></div>
+  <div class="stat"><strong>500+</strong><span>Zufriedene Kunden</span></div>
+  <div class="stat"><strong>100%</strong><span>Zertifizierte Qualität</span></div>
+  <div class="stat"><strong>24h</strong><span>Erreichbarkeit</span></div>
+</div>
+
+<!-- LEISTUNGEN -->
+<section class="leistungen" id="leistungen">
+  <div class="leistungen-header">
+    <div class="section-label">Was wir anbieten</div>
+    <h2>Unsere Leistungen</h2>
+    <p class="subtitle">Von der klassischen Schornsteinfegerarbeit bis zur professionellen Brandschutzschulung – wir sind Ihr kompetenter Partner.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Schornsteinfegerarbeiten">
+      </div>
+      <div class="card-body">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg>
+        </div>
+        <h3>Schornsteinfegerarbeiten</h3>
+        <p>Fristgerechte Kehrarbeiten, Abgasmessungen, Überprüfungen und Beratung rund um Ihre Feuerstätten – zuverlässig und nach aktuellen Vorschriften.</p>
+        <a href="#kontakt" class="card-link">Mehr erfahren</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?w=600&q=80" alt="Brandschutzschulung">
+      </div>
+      <div class="card-body">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8 8 6 11 6 14a6 6 0 0012 0c0-3-2-6-6-12z"/></svg>
+        </div>
+        <h3>Brandschutzschulungen</h3>
+        <p>Praxisnahe Brandschutzunterweisungen und Brandschutzhelfer-Ausbildungen für Unternehmen – individuell auf Ihre Bedürfnisse abgestimmt.</p>
+        <a href="#kontakt" class="card-link">Mehr erfahren</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80" alt="Rauchwarnmelder">
+      </div>
+      <div class="card-body">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 002-2H10a2 2 0 002 2zm6-6V11a6 6 0 00-5-5.91V4a1 1 0 00-2 0v1.09A6 6 0 006 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+        </div>
+        <h3>Rauchwarnmelder</h3>
+        <p>Beratung, Montage und Wartung von Rauchwarnmeldern für Privathaushalte und Gewerbeimmobilien – für maximale Sicherheit.</p>
+        <a href="#kontakt" class="card-link">Mehr erfahren</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section id="ueber">
+  <div class="ueber">
+    <div class="ueber-img">
+      <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=700&q=80" alt="Marc Battermann">
+      <div class="ueber-img-badge">
+        15+ Jahre<br><span>Berufserfahrung</span>
+      </div>
+    </div>
+    <div class="ueber-content">
+      <div class="section-label">Über mich</div>
+      <h2>Marc Battermann – Ihr Experte vor Ort</h2>
+      <p class="subtitle">Als ausgebildeter Schornsteinfegermeister bringe ich langjährige Erfahrung in der Brandschutztechnik und im Schornsteinfegerhandwerk mit. Sicherheit und Zuverlässigkeit stehen bei mir an erster Stelle.</p>
+      <ul>
+        <li>Ausgebildeter Schornsteinfegermeister</li>
+        <li>Zertifizierter Brandschutzfachmann</li>
+        <li>Brandschutzhelfer-Ausbilder</li>
+        <li>Langjährige Erfahrung im Privat- und Gewerbebereich</li>
+        <li>Persönliche &amp; transparente Beratung</li>
+        <li>Schnelle und zuverlässige Terminvergabe</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section">
+  <div class="section-label" style="color:var(--gold)">Einblick in unsere Arbeit</div>
+  <h2>Sehen Sie uns bei der Arbeit</h2>
+  <p class="subtitle">Professionell, gründlich und mit Leidenschaft dabei.</p>
+  <div class="video-wrap">
+    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&q=80" alt="Video Vorschau">
+    <div class="play-btn">
+      <div class="play-circle">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+    </div>
+  </div>
+  <p class="video-note">Hier können Sie Ihr eigenes Video hinterlegen</p>
+</section>
+
+<!-- KONTAKT -->
+<section class="kontakt" id="kontakt">
+  <div class="kontakt-inner">
+    <div class="kontakt-info">
+      <div class="section-label">Kontakt</div>
+      <h2>Sprechen Sie uns an</h2>
+      <p class="subtitle">Wir freuen uns auf Ihre Anfrage und melden uns schnellstmöglich zurück.</p>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        </div>
+        <div>
+          <strong>Adresse</strong>
+          <span>Ihre Adresse hier, Musterstadt</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+        </div>
+        <div>
+          <strong>Telefon</strong>
+          <span>+49 XXXX XXXXXXX</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div>
+          <strong>E-Mail</strong>
+          <span>info@battermann-schornsteinfeger.de</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm.5 5v6l5 3-.75 1.23L11 14V7h1.5z"/></svg>
+        </div>
+        <div>
+          <strong>Erreichbarkeit</strong>
+          <span>Mo–Fr: 7:00 – 18:00 Uhr</span>
+        </div>
+      </div>
+    </div>
+    <form onsubmit="return false;">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Vorname</label>
+          <input type="text" placeholder="Max">
+        </div>
+        <div class="form-group">
+          <label>Nachname</label>
+          <input type="text" placeholder="Mustermann">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>E-Mail</label>
+        <input type="email" placeholder="max@beispiel.de">
+      </div>
+      <div class="form-group">
+        <label>Telefon</label>
+        <input type="tel" placeholder="+49 ...">
+      </div>
+      <div class="form-group">
+        <label>Ihr Anliegen</label>
+        <select>
+          <option value="">Bitte wählen ...</option>
+          <option>Schornsteinfegerarbeiten</option>
+          <option>Brandschutzschulung</option>
+          <option>Rauchwarnmelder</option>
+          <option>Sonstiges</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Nachricht</label>
+        <textarea placeholder="Wie können wir Ihnen helfen?"></textarea>
+      </div>
+      <div class="form-group checkbox-row">
+        <input type="checkbox" id="ds">
+        <label for="ds" style="font-weight:400;margin:0;">Ich habe die Datenschutzerklärung gelesen und bin mit der Verarbeitung meiner Daten einverstanden.</label>
+      </div>
+      <button class="form-submit">Nachricht absenden</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">
+        <div class="logo-emblem">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <strong>Marc Battermann</strong>
+          <span>Schornsteinfeger &amp; Brandschutz</span>
+        </div>
+      </div>
+      <p>Ihr zuverlässiger Partner für Schornsteinfegerarbeiten, Brandschutzschulungen und Rauchwarnmelder. Sicherheit mit Erfahrung.</p>
+    </div>
+    <div>
+      <h4>Leistungen</h4>
+      <ul>
+        <li><a href="#leistungen">Schornsteinfegerarbeiten</a></li>
+        <li><a href="#leistungen">Brandschutzschulungen</a></li>
+        <li><a href="#leistungen">Rauchwarnmelder</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Rechtliches</h4>
+      <ul>
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#">Cookie-Einstellungen</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Marc Battermann – Schornsteinfeger &amp; Brandschutz</span>
+    <span><a href="#">Impressum</a> · <a href="#">Datenschutz</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
